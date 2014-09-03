@@ -1,0 +1,28 @@
+{
+  "name": "AbbeSaysKoa",
+  "version": "0.0.1",
+  "description": "A simple site to keep track of my kids sayings and quotes",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --harmony-generators -u bdd -R min -w test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcusoftnet/AbbeSaysKoa.git"
+  },
+  "keywords": [
+    "koa",
+    "kids"
+  ],
+  "author": "Marcus Hammarberg (@marcusoftnet)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marcusoftnet/AbbeSaysKoa/issues"
+  },
+  "homepage": "https://github.com/marcusoftnet/AbbeSaysKoa",
+  "devDependencies": {
+    "should": "~4.0.4",
+    "mocha": "~1.21.4",
+    "supertest": "~0.13.0"
+  }
+}
