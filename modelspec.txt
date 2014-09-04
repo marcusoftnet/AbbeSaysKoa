@@ -1,0 +1,15 @@
+Family
+	Name
+	Members :[{
+		Name
+		BirthDate
+		Bio
+	}
+	]
+
+Quote
+	Text
+	FamilyId
+	FamilyMemberId
+	Date
+	Tags : []
