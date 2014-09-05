@@ -1,7 +1,22 @@
+var testHelpers = require('./testHelpers.js');
+var co = require('co');
+var request = testHelpers.request;
+var Family = require("../model/model.js").Family;
+
 describe("The backend API", function(){
 	describe("Families", function() {
 		describe("Adding", function () {
-			it("adds a new family with all required attributes");
+			it("adds a new family with all required attributes", function (done) {
+				var postData = {
+					name : "Hammarbergs"
+				};
+
+				request
+					.post("/api/family")
+					.send(postData)
+					.expect("location", /^\/api\/family\/[0-9a-fA-F]{24}$/)
+					.expect(200, done);
+			});
 			it("requires a family name");
 			it("requires an unique family name");
 			it("requires at least one person in the family");
