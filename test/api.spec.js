@@ -46,7 +46,12 @@ describe("The backend API", function(){
 					.expect(/Hammarbergs/)
 					.expect(200, done);
 			});
-			it("returns error for non-existing family name");
+			it("returns error for non-existing family name", function (done) {
+				request
+					.get("/api/family/Hammarbergs")
+					.set("Accept", "application/json")
+					.expect(404, done);
+			});
 		});
 		describe("Updating", function () {
 			it("updates family names");

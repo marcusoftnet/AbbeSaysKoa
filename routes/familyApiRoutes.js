@@ -25,6 +25,9 @@ module.exports.addFamily = function *() {
 
 module.exports.getFamily = function *(familyName) {
 	var family = yield families.findOne({name: familyName});
+
+	if(!family){ return this.status = 404; }
+
 	this.body = family;
 	this.status = 200;
 };
