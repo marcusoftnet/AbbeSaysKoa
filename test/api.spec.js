@@ -17,7 +17,15 @@ describe("The backend API", function(){
 					.expect("location", /^\/api\/family\/[0-9a-fA-F]{24}$/)
 					.expect(200, done);
 			});
-			it("requires a family name");
+			it("requires a family name", function (done) {
+				var postData = { };
+
+				request
+					.post("/api/family")
+					.send(postData)
+					.expect("ErrorMessage", "Family name required")
+					.expect(400, done);
+			});
 			it("requires an unique family name");
 			it("requires at least one person in the family");
 		});

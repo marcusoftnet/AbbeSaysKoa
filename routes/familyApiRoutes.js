@@ -3,6 +3,12 @@ var families = require("../lib/db.js").families;
 
 module.exports.addFamily = function *() {
 	var postedData = yield parse(this);
+
+	if(!postedData.name){
+		this.status = 400;
+		return this.set("ErrorMessage", "Family name required");
+	};
+
 	postedData.created_at = new Date;
 
 	var family = yield families.insert(postedData);
