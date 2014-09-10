@@ -2,10 +2,9 @@ var testHelpers = require('./testHelpers.js');
 var request = testHelpers.request;
 
 describe("The backend API", function(){
+	beforeEach(function () { testHelpers.cleanDb(); });
 
 	describe("Families", function() {
-		beforeEach(function () { testHelpers.cleanDb(); });
-
 		describe("Adding", function () {
 			it("adds a new family with all required attributes", function (done) {
 				var postData = { name : "Hammarbergs"};
