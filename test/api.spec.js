@@ -54,8 +54,10 @@ describe("The backend API", function(){
 			});
 		});
 		describe("Updating", function () {
-			it("updates family names");
+			it("updates family name");
 			it("requires unique family name");
+		});
+		describe("Adding family members", function() {
 			it("adds family members");
 			it("require a name for family members");
 			it("require a birthdate for family members");
