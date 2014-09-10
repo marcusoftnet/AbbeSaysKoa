@@ -4,6 +4,11 @@ var request = testHelpers.request;
 var Family = require("../model/model.js").Family;
 
 describe("The backend API", function(){
+	beforeEach(function (done) {
+		testHelpers.cleanDb();
+		done();
+	});
+
 	describe("Families", function() {
 		describe("Adding", function () {
 			it("adds a new family with all required attributes", function (done) {
