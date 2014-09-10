@@ -9,6 +9,7 @@ var config = require('./config')();
 // /api/family
 var familyApiRoutes = require('./routes/familyApiRoutes.js');
 app.use(route.post("/api/family", familyApiRoutes.addFamily))
+app.use(route.get("/api/family/:name", familyApiRoutes.getFamily))
 
 // listen
 app.listen(config.port);

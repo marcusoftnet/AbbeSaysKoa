@@ -22,3 +22,9 @@ module.exports.addFamily = function *() {
 	this.set("Location", "/api/family/" + family._id);
 	this.status = 200;
 };
+
+module.exports.getFamily = function *(familyName) {
+	var family = yield families.findOne({name: familyName});
+	this.body = family;
+	this.status = 200;
+};

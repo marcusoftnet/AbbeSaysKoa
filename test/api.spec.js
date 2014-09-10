@@ -35,10 +35,17 @@ describe("The backend API", function(){
 					.expect("ErrorMessage", "Family name taken")
 					.expect(400, done);
 			});
-			it("requires at least one person in the family");
 		});
 		describe("Getting", function () {
-			it("for an existing family name");
+			it("for an existing family name", function (done) {
+				testHelpers.insertFamily("Hammarbergs");
+
+				request
+					.get("/api/family/Hammarbergs")
+					.set("Accept", "application/json")
+					.expect(/Hammarbergs/)
+					.expect(200, done);
+			});
 			it("returns error for non-existing family name");
 		});
 		describe("Updating", function () {
