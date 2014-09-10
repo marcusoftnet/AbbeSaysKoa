@@ -9,6 +9,12 @@ module.exports.addFamily = function *() {
 		return this.set("ErrorMessage", "Family name required");
 	};
 
+	var count = yield families.count({name:postedData.name});
+	if(count > 0){
+		this.status = 400;
+		return this.set("ErrorMessage", "Family name taken");
+	};
+
 	postedData.created_at = new Date;
 
 	var family = yield families.insert(postedData);

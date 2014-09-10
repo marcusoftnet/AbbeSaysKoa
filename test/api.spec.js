@@ -1,20 +1,13 @@
 var testHelpers = require('./testHelpers.js');
-var co = require('co');
 var request = testHelpers.request;
-var Family = require("../model/model.js").Family;
 
 describe("The backend API", function(){
-	beforeEach(function (done) {
-		testHelpers.cleanDb();
-		done();
-	});
+	beforeEach(function () { testHelpers.cleanDb(); });
 
 	describe("Families", function() {
 		describe("Adding", function () {
 			it("adds a new family with all required attributes", function (done) {
-				var postData = {
-					name : "Hammarbergs"
-				};
+				var postData = { name : "Hammarbergs"};
 
 				request
 					.post("/api/family")
@@ -31,7 +24,17 @@ describe("The backend API", function(){
 					.expect("ErrorMessage", "Family name required")
 					.expect(400, done);
 			});
-			it("requires an unique family name");
+			it("requires an unique family name", function (done) {
+				testHelpers.insertFamily("Hammarbergs");
+
+				var postData = { name : "Hammarbergs"};
+
+				request
+					.post("/api/family")
+					.send(postData)
+					.expect("ErrorMessage", "Family name taken")
+					.expect(400, done);
+			});
 			it("requires at least one person in the family");
 		});
 		describe("Getting", function () {
