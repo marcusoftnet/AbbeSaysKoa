@@ -63,7 +63,16 @@ describe("The backend API", function(){
 					.expect("Location", "/api/family/Anderssons")
 					.expect(200, done);
 			});
-			it("requires unique family name");
+			it("requires unique family name", function (done) {
+				testHelpers.insertFamily("Anderssons");
+				testHelpers.insertFamily("Hammarbergs");
+
+				request
+					.put("/api/family/Hammarbergs")
+					.send({ name : "Anderssons"})
+					.expect("ErrorMessage", "Family name taken")
+					.expect(400, done);
+			});
 		});
 		describe("Handling family members", function() {
 			it("adds family members");

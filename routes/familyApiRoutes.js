@@ -35,6 +35,12 @@ module.exports.getFamily = function *(familyName) {
 module.exports.updateFamily = function *(familyName) {
 	var postedData = yield parse(this);
 
+	var count = yield families.count({name:postedData.name});
+	if(count > 0){
+		this.status = 400;
+		return this.set("ErrorMessage", "Family name taken");
+	};
+
 	var family = yield families.findAndModify(
 			{
 				query: {name : familyName},
