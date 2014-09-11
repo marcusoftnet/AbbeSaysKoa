@@ -12,7 +12,7 @@ describe("The backend API", function(){
 				request
 					.post("/api/family")
 					.send(postData)
-					.expect("location", /^\/api\/family\/[0-9a-fA-F]{24}$/)
+					.expect("location", "/api/family/Hammarbergs")
 					.expect(200, done);
 			});
 			it("requires a family name", function (done) {
@@ -54,10 +54,18 @@ describe("The backend API", function(){
 			});
 		});
 		describe("Updating", function () {
-			it("updates family name");
+			it("updates existing family name", function (done) {
+				testHelpers.insertFamily("Hammarbergs");
+
+				request
+					.put("/api/family/Hammarbergs")
+					.send({ name : "Anderssons"})
+					.expect("Location", "/api/family/Anderssons")
+					.expect(200, done);
+			});
 			it("requires unique family name");
 		});
-		describe("Adding family members", function() {
+		describe("Handling family members", function() {
 			it("adds family members");
 			it("require a name for family members");
 			it("require a birthdate for family members");

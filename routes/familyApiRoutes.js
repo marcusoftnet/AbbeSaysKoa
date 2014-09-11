@@ -19,7 +19,7 @@ module.exports.addFamily = function *() {
 
 	var family = yield families.insert(postedData);
 
-	this.set("Location", "/api/family/" + family._id);
+	this.set("Location", "/api/family/" + family.name);
 	this.status = 200;
 };
 
@@ -29,5 +29,18 @@ module.exports.getFamily = function *(familyName) {
 	if(!family){ return this.status = 404; }
 
 	this.body = family;
+	this.status = 200;
+};
+
+module.exports.updateFamily = function *(familyName) {
+	var postedData = yield parse(this);
+
+	var family = yield families.findAndModify(
+			{
+				query: {name : familyName},
+				update: {name : postedData.name}
+			});
+
+	this.set("Location", "/api/family/" + postedData.name)
 	this.status = 200;
 };
