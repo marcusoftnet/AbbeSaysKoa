@@ -53,6 +53,11 @@ module.exports.updateFamily = function *(familyName) {
 module.exports.addFamilyMember = function *(familyName) {
 	var postedData = yield parse(this);
 
+	if(!postedData.name){
+		this.set("ErrorMessage", "Family members must have a name");
+		return this.status = 400;
+	}
+
 	var family = yield families.findAndModify(
 			{
 				query: { name : familyName },
