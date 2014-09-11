@@ -11,6 +11,7 @@ var familyApiRoutes = require('./routes/familyApiRoutes.js');
 app.use(route.post("/api/family", familyApiRoutes.addFamily))
 app.use(route.get("/api/family/:name", familyApiRoutes.getFamily))
 app.use(route.put("/api/family/:name", familyApiRoutes.updateFamily))
+app.use(route.post("/api/family/:name/members", familyApiRoutes.addFamilyMember))
 
 // listen
 app.listen(config.port);

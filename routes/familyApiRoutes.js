@@ -41,12 +41,23 @@ module.exports.updateFamily = function *(familyName) {
 		return this.set("ErrorMessage", "Family name taken");
 	};
 
-	var family = yield families.findAndModify(
-			{
-				query: {name : familyName},
-				update: {name : postedData.name}
+	var family = yield families.findAndModify({
+				query: { name : familyName },
+				$set:  { name : postedData.name }
 			});
 
 	this.set("Location", "/api/family/" + postedData.name)
+	this.status = 200;
+};
+
+module.exports.addFamilyMember = function *(familyName) {
+	var postedData = yield parse(this);
+
+	var family = yield families.findAndModify(
+			{
+				query: { name : familyName },
+				$push: { members : postedData }
+			});
+
 	this.status = 200;
 };

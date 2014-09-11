@@ -75,7 +75,24 @@ describe("The backend API", function(){
 			});
 		});
 		describe("Handling family members", function() {
-			it("adds family members");
+			var familyMemberPostData = {};
+
+			beforeEach(function (done) {
+				testHelpers.insertFamily("Hammarbergs");
+
+				familyMemberPostData = {
+					name: "Albert",
+					birthdate : new Date(2008, 1, 24),
+					bio : "A fun little bloke"};
+				done();
+			});
+			it("adds family members", function (done) {
+
+				request
+					.post("/api/family/Hammarbergs/members")
+					.send(familyMemberPostData)
+					.expect(200, done)
+			});
 			it("require a name for family members");
 			it("require a birthdate for family members");
 			it("changes name for existing family members");
