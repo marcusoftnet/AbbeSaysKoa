@@ -102,7 +102,15 @@ describe("The backend API", function(){
 					.expect("ErrorMessage", "Family members must have a name")
 					.expect(400, done);
 			});
-			it("require a birthdate for family members");
+			it("require a birthdate for family members", function (done) {
+				delete familyMemberPostData.birthdate;
+
+				request
+					.post("/api/family/Hammarberg/members")
+					.send(familyMemberPostData)
+					.expect("ErrorMessage", "Family members must have a birth date")
+					.expect(400, done);
+			});
 			it("changes name for existing family members");
 			it("removes existing family members");
 		});

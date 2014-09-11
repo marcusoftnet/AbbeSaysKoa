@@ -58,6 +58,11 @@ module.exports.addFamilyMember = function *(familyName) {
 		return this.status = 400;
 	}
 
+	if(!postedData.birthdate){
+		this.set("ErrorMessage", "Family members must have a birth date");
+		return this.status = 400;
+	}
+
 	var family = yield families.findAndModify(
 			{
 				query: { name : familyName },
