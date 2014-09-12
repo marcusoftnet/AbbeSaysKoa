@@ -23,3 +23,11 @@ module.exports.insertFamilyWithFamilyMember = function (name, memberName) {
 		yield db.families.insert(f);
 	})();
 };
+
+module.exports.getFamily = function (name) {
+	var f = {};
+	co(function *() {
+		f = yield db.families.find({name : name});
+	})();
+	return f;
+}

@@ -163,7 +163,17 @@ describe("The backend API", function(){
 					.expect("Location", "/api/family/Hammarbergs")
 					.expect(200, done);
 			});
-			it("removes existing family members");
+			it("removes existing family members", function (done) {
+				testHelpers.cleanDb();
+				testHelpers.insertFamilyWithFamilyMember("Hammarbergs", "Albert");
+				var postData = { nameToRemove : "Albert" };
+
+				request
+					.del("/api/family/Hammarbergs/members")
+					.send(postData)
+					.expect("Location", "/api/family/Hammarbergs")
+					.expect(200, done);
+			});
 		});
 		describe("Remove", function () {
 			it("removes all data about a family, including quotes");

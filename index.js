@@ -13,6 +13,7 @@ app.use(route.get("/api/family/:name", familyApiRoutes.getFamily));
 app.use(route.put("/api/family/:name", familyApiRoutes.updateFamily));
 app.use(route.post("/api/family/:name/members", familyApiRoutes.addFamilyMember));
 app.use(route.put("/api/family/:name/members", familyApiRoutes.updateFamilyMember));
+app.use(route.del("/api/family/:name/members", familyApiRoutes.removeFamilyMember));
 
 // listen
 app.listen(config.port);
