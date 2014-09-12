@@ -69,5 +69,27 @@ module.exports.addFamilyMember = function *(familyName) {
 				$push: { members : postedData }
 			});
 
+	this.set("Location", "/api/family/" + familyName)
 	this.status = 200;
 };
+
+module.exports.updateFamilyMember = function *(familyName) {
+	var postedData = yield parse(this);
+
+	var f = yield families.findOne({ name : familyName});
+	f.members.splice(indexOfFamilyMember(f, postedData.name), 1);
+	f.members.push({ name: postedData.newName, birthdate : postedData.birthdate});
+
+	yield families.update({ name : familyName}, { members : f.members });
+
+	this.set("Location", "/api/family/" + familyName)
+	this.status = 200;
+};
+
+var indexOfFamilyMember = function (family, name) {
+	for (var i = 0; i < family.members.length; i++) {
+		if(family.members[i].name === name)
+			return i;
+	};
+	return -1;
+}

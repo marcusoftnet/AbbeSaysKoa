@@ -15,3 +15,11 @@ module.exports.insertFamily = function (name) {
 		yield db.families.insert(new Family(name));
 	})();
 };
+
+module.exports.insertFamilyWithFamilyMember = function (name, memberName) {
+	co(function *() {
+		var f = new Family(name);
+		f =	f.addFamilyMember(memberName, new Date);
+		yield db.families.insert(f);
+	})();
+};
