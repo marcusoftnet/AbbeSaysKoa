@@ -112,14 +112,49 @@ describe("The backend API", function(){
 					.expect("ErrorMessage", "Family members must have a birth date")
 					.expect(400, done);
 			});
-			it("changes fields for existing family members", function (done) {
+			it("changes name for existing family members", function (done) {
 				testHelpers.cleanDb();
 				testHelpers.insertFamilyWithFamilyMember("Hammarbergs", "Albert");
 
 				var postData = {
 					name : "Albert",
 					newName : "Abbe",
-					birthdate : new Date(2008, 1, 24)
+					newBirthdate : new Date(2008, 1, 24),
+					newBio : "Some text"
+				};
+
+				request
+					.put("/api/family/Hammarbergs/members")
+					.send(postData)
+					.expect("Location", "/api/family/Hammarbergs")
+					.expect(200, done);
+			});
+			it("changes birthdate for existing family members", function (done) {
+				testHelpers.cleanDb();
+				testHelpers.insertFamilyWithFamilyMember("Hammarbergs", "Albert");
+
+				var postData = {
+					name : "Albert",
+					newName : "Abbe",
+					newBirthdate : new Date(2008, 1, 24),
+					newBio : "Some text"
+				};
+
+				request
+					.put("/api/family/Hammarbergs/members")
+					.send(postData)
+					.expect("Location", "/api/family/Hammarbergs")
+					.expect(200, done);
+			});
+			it("changes bio for existing family members", function (done) {
+				testHelpers.cleanDb();
+				testHelpers.insertFamilyWithFamilyMember("Hammarbergs", "Albert");
+
+				var postData = {
+					name : "Albert",
+					newName : "Abbe",
+					newBirthdate : new Date(2008, 1, 24),
+					newBio : "Some text"
 				};
 
 				request

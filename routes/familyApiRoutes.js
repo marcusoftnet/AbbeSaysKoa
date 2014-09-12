@@ -78,7 +78,7 @@ module.exports.updateFamilyMember = function *(familyName) {
 
 	var f = yield families.findOne({ name : familyName});
 	f.members.splice(indexOfFamilyMember(f, postedData.name), 1);
-	f.members.push({ name: postedData.newName, birthdate : postedData.birthdate});
+	f.members.push({ name: postedData.newName, birthdate : postedData.newBirthdate, bio : postedData.newBio});
 
 	yield families.update({ name : familyName}, { members : f.members });
 
