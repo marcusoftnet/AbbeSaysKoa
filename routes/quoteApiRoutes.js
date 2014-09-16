@@ -22,6 +22,11 @@ module.exports.addQuote = function *() {
 		return this.status = 404;
 	};
 
+	if(!utils.exists(postedQuote.saidAt)){
+		this.set("ErrorMessage", "Said at date required")
+		return this.status = 404;
+	};
+
 	var f = yield families.findOne({ name: postedQuote.familyName });
 
 	if(!utils.exists(f)){

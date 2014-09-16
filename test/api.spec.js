@@ -247,7 +247,15 @@ describe("The backend API", function(){
 					.expect("ErrorMessage", "Quote text required")
 					.expect(404, done);
 			});
-			it("requires a said at date");
+			it("requires a said at date", function (done) {
+				delete quotePostData.saidAt;
+
+				request
+					.post("/api/quote")
+					.send(quotePostData)
+					.expect("ErrorMessage", "Said at date required")
+					.expect(404, done);
+			});
 			it("has tags");
 		});
 		describe("Updating", function () {
