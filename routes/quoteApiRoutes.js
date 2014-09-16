@@ -17,6 +17,11 @@ module.exports.addQuote = function *() {
 		return this.status = 404;
 	};
 
+	if(!utils.exists(postedQuote.quoteText)){
+		this.set("ErrorMessage", "Quote text required")
+		return this.status = 404;
+	};
+
 	var f = yield families.findOne({ name: postedQuote.familyName });
 
 	if(!utils.exists(f)){

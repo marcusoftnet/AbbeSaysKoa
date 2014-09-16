@@ -238,7 +238,15 @@ describe("The backend API", function(){
 					.expect("ErrorMessage", "'Gustav' not found in family 'Hammarbergs'")
 					.expect(404, done);
 			});
-			it("requires a quote text");
+			it("requires a quote text", function (done) {
+				delete quotePostData.quoteText;
+
+				request
+					.post("/api/quote")
+					.send(quotePostData)
+					.expect("ErrorMessage", "Quote text required")
+					.expect(404, done);
+			});
 			it("requires a said at date");
 			it("has tags");
 		});
