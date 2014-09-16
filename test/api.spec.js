@@ -229,6 +229,15 @@ describe("The backend API", function(){
 					.expect("ErrorMessage", "Said by name required")
 					.expect(404, done);
 			});
+			it("requires an existing said by name", function (done) {
+				quotePostData.saidByName = "Gustav";
+
+				request
+					.post("/api/quote")
+					.send(quotePostData)
+					.expect("ErrorMessage", "'Gustav' not found in family 'Hammarbergs'")
+					.expect(404, done);
+			});
 			it("requires a quote text");
 			it("requires a said at date");
 			it("has tags");

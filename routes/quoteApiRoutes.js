@@ -24,10 +24,18 @@ module.exports.addQuote = function *() {
 		return this.status = 404;
 	};
 
+	var saidBy = utils.getFamilyMemberByName(f, postedQuote.saidByName);
+	if(!utils.exists(saidBy)){
+		this.set("ErrorMessage",
+			"'" + postedQuote.saidByName + "' not found in family '"
+			+ postedQuote.familyName + "'");
+		return this.status = 404;
+	};
+
 	var quoteToInsert = {
 		quoteText : postedQuote.quoteText,
 		saidAt : postedQuote.saidAt,
-		saidBy : utils.getFamilyMemberByName(f, postedQuote.saidByName),
+		saidBy : saidBy,
 		family : f,
 		tags : utils.splitAndTrimTagString(postedQuote.tagString)
 	};
