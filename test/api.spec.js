@@ -256,7 +256,15 @@ describe("The backend API", function(){
 					.expect("ErrorMessage", "Said at date required")
 					.expect(404, done);
 			});
-			it("has tags");
+			it("allows no tags", function (done) {
+				quotePostData.tagString = "";
+
+				request
+					.post("/api/quote")
+					.send(quotePostData)
+					.expect("location", /^\/api\/quote\/[0-9a-fA-F]{24}$/)  // /api/quote/:id
+					.expect(200, done);
+			});
 		});
 		describe("Updating", function () {
 			it("updates the family member reference");
