@@ -12,6 +12,11 @@ module.exports.addQuote = function *() {
 		return this.status = 404;
 	};
 
+	if(!utils.exists(postedQuote.saidByName)){
+		this.set("ErrorMessage", "Said by name required")
+		return this.status = 404;
+	};
+
 	var f = yield families.findOne({ name: postedQuote.familyName });
 
 	if(!utils.exists(f)){

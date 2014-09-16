@@ -220,7 +220,15 @@ describe("The backend API", function(){
 					.expect("ErrorMessage", "Could not find family 'The H-bergs'")
 					.expect(404, done);
 			});
-			it("requires a family member name");
+			it("requires a said by name", function (done) {
+				delete quotePostData.saidByName;
+
+				request
+					.post("/api/quote")
+					.send(quotePostData)
+					.expect("ErrorMessage", "Said by name required")
+					.expect(404, done);
+			});
 			it("requires a quote text");
 			it("requires a said at date");
 			it("has tags");
