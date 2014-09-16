@@ -202,9 +202,27 @@ describe("The backend API", function(){
 					.expect("location", /^\/api\/quote\/[0-9a-fA-F]{24}$/)  // /api/quote/:id
 					.expect(200, done);
 			});
-			it("requires a family member reference");
-			it("requires a quote");
-			it("requires a date");
+			it("requires a family name", function (done) {
+				delete quotePostData.familyName;
+
+				request
+					.post("/api/quote")
+					.send(quotePostData)
+					.expect("ErrorMessage", "Family name required")
+					.expect(404, done);
+			});
+			// it("requires a family name", function (done) {
+			// 	quotePostData.familyName = "The H-bergs";
+
+			// 	request
+			// 		.post("/api/quote")
+			// 		.send(quotePostData)
+			// 		.expect("ErrorMessage", "An existing family name needs to be supplied");
+			// 		.expect(400, done);
+			// });
+			it("requires a family member name");
+			it("requires a quote text");
+			it("requires a said at date");
 			it("has tags");
 		});
 		describe("Updating", function () {

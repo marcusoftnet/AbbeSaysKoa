@@ -7,6 +7,11 @@ var families = db.families;
 module.exports.addQuote = function *() {
 	var postedQuote = yield parse(this);
 
+	if(!utils.exists(postedQuote.familyName)){
+		this.set("ErrorMessage", "Family name required")
+		return this.status = 404;
+	};
+
 	var f = yield families.findOne({ name: postedQuote.familyName });
 
 	var quoteToInsert = {
