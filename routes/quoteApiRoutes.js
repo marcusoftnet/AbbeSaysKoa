@@ -14,6 +14,11 @@ module.exports.addQuote = function *() {
 
 	var f = yield families.findOne({ name: postedQuote.familyName });
 
+	if(!utils.exists(f)){
+		this.set("ErrorMessage", "Could not find family '" + postedQuote.familyName + "'");
+		return this.status = 404;
+	};
+
 	var quoteToInsert = {
 		quoteText : postedQuote.quoteText,
 		saidAt : postedQuote.saidAt,

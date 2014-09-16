@@ -211,15 +211,15 @@ describe("The backend API", function(){
 					.expect("ErrorMessage", "Family name required")
 					.expect(404, done);
 			});
-			// it("requires a family name", function (done) {
-			// 	quotePostData.familyName = "The H-bergs";
+			it("requires a family name", function (done) {
+				quotePostData.familyName = "The H-bergs";
 
-			// 	request
-			// 		.post("/api/quote")
-			// 		.send(quotePostData)
-			// 		.expect("ErrorMessage", "An existing family name needs to be supplied");
-			// 		.expect(400, done);
-			// });
+				request
+					.post("/api/quote")
+					.send(quotePostData)
+					.expect("ErrorMessage", "Could not find family 'The H-bergs'")
+					.expect(404, done);
+			});
 			it("requires a family member name");
 			it("requires a quote text");
 			it("requires a said at date");
