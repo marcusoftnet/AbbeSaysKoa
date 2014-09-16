@@ -180,8 +180,28 @@ describe("The backend API", function(){
 		});
 	});
 	describe("Quotes", function () {
+		var testFamily, quotePostData = {};
+		beforeEach(function (done) {
+			testFamily = testHelpers
+					.insertFamilyWithFamilyMember("Hammarbergs", "Albert");
+
+			quotePostData = {
+				quoteText : "A quote",
+				saidAt : new Date(2014,9,16),
+				saidByName : "Albert",
+				familyName : "Hammarbergs",
+				tagString : "tag1, tag2, tag3"
+			};
+			done();
+		});
 		describe("Adding", function () {
-			it("add a new quote with all required attributes");
+			it("add a new quote with all required attributes", function (done) {
+				request
+					.post("/api/quote")
+					.send(quotePostData)
+					.expect("location", /^\/api\/quote\/[0-9a-fA-F]{24}$/)  // /api/quote/:id
+					.expect(200, done);
+			});
 			it("requires a family member reference");
 			it("requires a quote");
 			it("requires a date");

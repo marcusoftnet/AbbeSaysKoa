@@ -17,11 +17,13 @@ module.exports.insertFamily = function (name) {
 };
 
 module.exports.insertFamilyWithFamilyMember = function (name, memberName) {
+	var family = {};
 	co(function *() {
 		var f = new Family(name);
-		f =	f.addFamilyMember(memberName, new Date);
+		family = f.addFamilyMember(memberName, new Date);
 		yield db.families.insert(f);
 	})();
+	return family;
 };
 
 module.exports.getFamily = function (name) {

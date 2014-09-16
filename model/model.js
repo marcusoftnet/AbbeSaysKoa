@@ -5,7 +5,7 @@ function Family(familyName){
 
 Family.prototype.addFamilyMember = function(name, birthDate){
 	if(!name) throw new Error("Name required");
-	this.members.push({name: name, birthDate:birthDate});
+	this.members.push({name: name, birthDate:birthDate, bio:""});
 	return this;
 };
 
